@@ -13,15 +13,15 @@ h1{
     font-size: 3.5rem;
 }
 
+h1 span{
+    color: blue;
+}
+
 .body-container input{
     font-size: 2rem;
     margin-top: 1em;
     margin-bottom: 1em;
     background-color: rgba(0, 128, 128, 0.5);
-}
-
-#img-preview-canvas{
-    display: none;
 }
 
 .body-container button{
@@ -38,18 +38,7 @@ p{
     flex: 1;
 }
 
-#reasoning-div p{
-    font-size: 1rem;
-}
 
-#reasoning-div{
-    margin-bottom: 2rem;
-}
-
-footer{
-    flex-grow: 0;
-    text-align: center;
-}
 
 
 

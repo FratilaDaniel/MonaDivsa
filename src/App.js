@@ -1,15 +1,12 @@
 import './App.css';
 import Uploader from './components/Uploader';
-import Contact from './components/Contact';
+import Contact from './components/contact/Contact';
 
 function App() {
     return (
         <div className="app">
+            <h1>Mona <span>DIV</span>sa</h1>
             <Uploader/>
-            <div id="reasoning-div">
-                <p>If you somehow find this page useful, please contact me and tell me in which context you used such an application.</p>
-                <p>You can reach me via email: <span>danfratila1997@gmail.com</span></p>
-            </div>
             <Contact/>
         </div>
     );

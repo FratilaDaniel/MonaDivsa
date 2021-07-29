@@ -1,0 +1,25 @@
+#contact-links-container{
+    display: flex;
+    justify-content: space-evenly;
+    width: 25%;
+    margin: auto;
+}
+
+#reasoning-div p{
+    font-size: 1rem;
+}
+
+#reasoning-div{
+    margin-bottom: 2rem;
+}
+
+#reasoning-div span{
+    color: blue;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+footer{
+    flex-grow: 0;
+    text-align: center;
+}

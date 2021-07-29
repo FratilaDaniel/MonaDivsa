@@ -1,11 +1,24 @@
 import "./codeArea.css";
 
+const CODE_TEMPLATE = (content) =>`
+<!DOCTYPE HTML>
+<HTML>
+    <HEAD> <META charset="utf-8"/> <TITLE>Mona DIVsa</TITLE> </HEAD>
+
+    <BODY>
+        ${content}
+    </BODY>
+</HTML>
+`;
+
 function CodeCopier({codeBase}){
+
+    const FORMATTED_CODE = CODE_TEMPLATE(codeBase);
 
     function copyCodeToClipboard(){
         var copyText = document.createElement("textarea");
         document.body.appendChild(copyText);
-        copyText.value = codeBase;
+        copyText.value = FORMATTED_CODE;
         copyText.select();
         document.execCommand("copy");
         document.body.removeChild(copyText);
@@ -19,7 +32,7 @@ function CodeCopier({codeBase}){
                     <button onClick={copyCodeToClipboard}>Copy code</button>
                     <pre>
                         <code>
-                            {codeBase}
+                            {FORMATTED_CODE}
                         </code>
                     </pre>
                 </div>

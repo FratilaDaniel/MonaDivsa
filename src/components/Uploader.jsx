@@ -3,16 +3,7 @@ import ImageContainerDiv from "./ImageContainerDiv";
 import LoadingAnimation from "./LoadingAnimation";
 import CodeCopier from "./codearea/CodeArea";
 const VALID_IMAGE_TYPES = ['image/jpeg', 'image/png'];
-const CODE_TEMPLATE = (content) =>`
-<!DOCTYPE HTML>
-<HTML>
-    <HEAD> <META charset="utf-8"/> <TITLE>Mona DIVsa</TITLE> </HEAD>
 
-    <BODY>
-        ${content}
-    </BODY>
-</HTML>
-`;
 
 
 function Uploader() {
@@ -32,8 +23,9 @@ function Uploader() {
     }
 
     function createCanvas(source){
-        console.log("ajuns")
-        let canvas = document.getElementById("img-preview-canvas");
+
+        let canvas = document.createElement("canvas");
+        document.body.appendChild(canvas);
         let context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.height, canvas.width); // clear canvas every time an image is loaded
         let img = new Image();
@@ -59,15 +51,16 @@ function Uploader() {
             }    
             code += "\t</div>";
             setFinalImage(<ImageContainerDiv rows={img.height} columns={img.width}>{pixels}</ImageContainerDiv>);
-            setCodeBase(CODE_TEMPLATE(code));
+            setCodeBase(code);
             changeLoadingState();
+            document.body.removeChild(canvas);
         }
     }
 
 
     return (
         <div className="body-container">
-            <h1>Mona DIVsa</h1>
+            
             <div id="instructions-div">
                 <p>This web app transform a normal image into a grid of DIV elements, each having the size of one pixel.</p>
                 <p>For example, you can load a small image of Mona Lisa and the output will be an exact representation of that image, but in divs, hence Mona DIVsa.</p>
@@ -85,10 +78,6 @@ function Uploader() {
             
             
             <CodeCopier codeBase={codeBase}/>
-
-            
-
-            <canvas id="img-preview-canvas"></canvas>
         </div>
     );
     
