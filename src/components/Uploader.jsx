@@ -1,20 +1,17 @@
 import React, {useState} from "react";
 import ImageContainerDiv from "./ImageContainerDiv";
 import LoadingAnimation from "./LoadingAnimation";
-
+import CodeCopier from "./codearea/CodeArea";
 const VALID_IMAGE_TYPES = ['image/jpeg', 'image/png'];
 const CODE_TEMPLATE = (content) =>`
-    <!DOCTYPE HTML>
-    <HTML>
-        <HEAD>
-            <META charset="utf-8"/>
-            <TITLE>Mona DIVsa</TITLE>
-        </HEAD>
+<!DOCTYPE HTML>
+<HTML>
+    <HEAD> <META charset="utf-8"/> <TITLE>Mona DIVsa</TITLE> </HEAD>
 
-        <BODY>
+    <BODY>
         ${content}
-        </BODY>
-    </HTML>
+    </BODY>
+</HTML>
 `;
 
 
@@ -49,7 +46,7 @@ function Uploader() {
             const data = context.getImageData(0, 0, img.width, img.height).data;
 
             let pixels = [];
-            let code = `\t<div style="display: grid; grid-template-rows: repeat(${img.height}, 1px); grid-template-columns: repeat(${img.width}, 1px);">\n`;
+            let code = `<div style="display: grid; grid-template-rows: repeat(${img.height}, 1px); grid-template-columns: repeat(${img.width}, 1px);">\n`;
             for(let i = 0; i < data.length; i += 4){
                 const colors = data[i]   // r
                     + ", " + data[i + 1] // g
@@ -57,24 +54,16 @@ function Uploader() {
                     + ", " + data[i + 3] // a
                     ;
                 const el = <div key={i/4} style={{backgroundColor: `rgba(${colors})`}}></div>;
-                code += `\t\t\t<div key=${i/4} style="background-color: rgba(${colors})"></div>\n`
+                code += `\t\t<div key=${i/4} style="background-color: rgba(${colors})"></div>\n`
                 pixels.push(el);
             }    
-            code += "\t\t</div>";
+            code += "\t</div>";
             setFinalImage(<ImageContainerDiv rows={img.height} columns={img.width}>{pixels}</ImageContainerDiv>);
             setCodeBase(CODE_TEMPLATE(code));
             changeLoadingState();
         }
     }
 
-    function copyCodeToClipboard(){
-        var copyText = document.createElement("textarea");
-        document.body.appendChild(copyText);
-        copyText.value = codeBase;
-        copyText.select();
-        document.execCommand("copy");
-        document.body.removeChild(copyText);
-    }
 
     return (
         <div className="body-container">
@@ -94,19 +83,9 @@ function Uploader() {
                 {finalImage}
             </div>
             
-            <p>You can share this result with your friends, just copy the following code and insert it in a file called "index.html"</p>
             
-            {codeBase? 
-                <div className="code-container">
-                <button onClick={copyCodeToClipboard}>Copy code</button>
-                <hr/>
-                <pre>
-                    <code id="code">
-                        {codeBase}
-                    </code>
-                </pre>
-            </div>
-            : null}
+            <CodeCopier codeBase={codeBase}/>
+
             
 
             <canvas id="img-preview-canvas"></canvas>
