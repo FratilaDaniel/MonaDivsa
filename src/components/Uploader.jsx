@@ -24,8 +24,10 @@ function Uploader() {
     const [codeBase, setCodeBase] = useState("");
     
     function handleChange(event){
-        changeLoadingState(); 
-        createCanvas(URL.createObjectURL(event.target.files[0]));
+        if(event.target.files[0]){
+            changeLoadingState(); 
+            createCanvas(URL.createObjectURL(event.target.files[0]));
+        }
     }
 
     function changeLoadingState(){
@@ -77,15 +79,18 @@ function Uploader() {
     return (
         <div className="body-container">
             <h1>Mona DIVsa</h1>
-            <p>This web app transform a normal image into a grid of DIV elements, each having the size of one pixel.</p>
-            <p>Please do not ask why I have created this web application, just feel free to use it anytime.</p>
-            <p>Large images will take longer to be transformed into DIVs, images of 500x500 size or less are recommended.</p>
+            <div id="instructions-div">
+                <p>This web app transform a normal image into a grid of DIV elements, each having the size of one pixel.</p>
+                <p>For example, you can load a small image of Mona Lisa and the output will be an exact representation of that image, but in divs, hence Mona DIVsa.</p>
+                <p>Please do not ask why I have created this web application, just feel free to use it anytime.</p>
+                <p>Large images will take longer to be transformed into DIVs, images of 500x500 size or less are recommended.</p>  
+            </div>
             <input type="file" onChange={(event) => {handleChange(event);}} accept={VALID_IMAGE_TYPES.join(",")}/>
 
-            <canvas id="img-preview-canvas"></canvas>
             <p className="description">I spent way too much time thinking if I could<br/>and not enough time thinking if I should</p>
-            <LoadingAnimation isLoading={isLoading}/>
+            
             <div id="div-image-container">
+                <LoadingAnimation isLoading={isLoading}/>
                 {finalImage}
             </div>
             
@@ -104,6 +109,7 @@ function Uploader() {
             : null}
             
 
+            <canvas id="img-preview-canvas"></canvas>
         </div>
     );
     
