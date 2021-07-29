@@ -1,25 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import Uploader from './components/Uploader';
+import Contact from './components/Contact';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="app">
+            <Uploader/>
+            <div id="reasoning-div">
+                <p>If you somehow find this page useful, please contact me and tell me in which context you used such an application.</p>
+                <p>You can reach me via email: <span>danfratila1997@gmail.com</span></p>
+            </div>
+            <Contact/>
+        </div>
+    );
 }
 
 export default App;
