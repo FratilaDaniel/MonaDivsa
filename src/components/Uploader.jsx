@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import ImageContainerDiv from "./ImageContainerDiv";
-import LoadingAnimation from "./LoadingAnimation";
+import LoadingAnimation from "./resultContainer/LoadingAnimation";
 import CodeCopier from "./codearea/CodeArea";
 const VALID_IMAGE_TYPES = ['image/jpeg', 'image/png'];
-
-
 
 function Uploader() {
     const [isLoading, setIsLoading] = useState(false);
@@ -61,12 +59,7 @@ function Uploader() {
     return (
         <div className="body-container">
             
-            <div id="instructions-div">
-                <p>This web app transform a normal image into a grid of DIV elements, each having the size of one pixel.</p>
-                <p>For example, you can load a small image of Mona Lisa and the output will be an exact representation of that image, but in divs, hence Mona DIVsa.</p>
-                <p>Please do not ask why I have created this web application, just feel free to use it anytime.</p>
-                <p>Large images will take longer to be transformed into DIVs, images of 500x500 size or less are recommended.</p>  
-            </div>
+            
             <input type="file" onChange={(event) => {handleChange(event);}} accept={VALID_IMAGE_TYPES.join(",")}/>
 
             <p className="description">I spent way too much time thinking if I could<br/>and not enough time thinking if I should</p>
