@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import ImageContainerDiv from "./ImageContainerDiv";
-import LoadingAnimation from "./resultContainer/LoadingAnimation";
-import CodeCopier from "./codearea/CodeArea";
+import ImageContainerDiv from "../resultContainer/ImageContainerDiv";
+import CodeCopier from "../codearea/CodeArea";
 const VALID_IMAGE_TYPES = ['image/jpeg', 'image/png'];
 
 function Uploader() {
@@ -65,8 +64,7 @@ function Uploader() {
             <p className="description">I spent way too much time thinking if I could<br/>and not enough time thinking if I should</p>
             
             <div id="div-image-container">
-                <LoadingAnimation isLoading={isLoading}/>
-                {finalImage}
+                {isLoading ? <img src="/loading-buffering.gif" alt="loading"/> : finalImage}
             </div>
             
             
