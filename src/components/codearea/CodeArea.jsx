@@ -1,4 +1,6 @@
 import "./codeArea.css";
+import React from "react";
+import uploaderModel from "../uploader/uploaderModel";
 
 const CODE_TEMPLATE = (content) =>`
 <!DOCTYPE HTML>
@@ -11,34 +13,49 @@ const CODE_TEMPLATE = (content) =>`
 </HTML>
 `;
 
-function CodeCopier({codeBase}){
+class CodeCopier extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            codebase: ""
+        };
+        uploaderModel.addListener("fileChosen", () => this.listener());
+    }
 
-    const FORMATTED_CODE = CODE_TEMPLATE(codeBase);
+    listener(){
+        this.setState({codebase: uploaderModel.state.fileObject});
+    }
 
-    function copyCodeToClipboard(){
+    componentWillUnmount(){
+        uploaderModel.removeListener("fileChosen", this.listener);
+    }
+
+    copyCodeToClipboard(){
         var copyText = document.createElement("textarea");
         document.body.appendChild(copyText);
-        copyText.value = FORMATTED_CODE;
+        copyText.value = CODE_TEMPLATE(this.state.codebase);
         copyText.select();
         document.execCommand("copy");
         document.body.removeChild(copyText);
     }
 
-    return (
-        codeBase?
-            <div>
-                <p>You can share this result with your friends, just copy the following code and insert it in a file called "index.html"</p>
-                <div id="code-container">
-                    <button onClick={copyCodeToClipboard}>Copy code</button>
-                    <pre>
-                        <code>
-                            {FORMATTED_CODE}
-                        </code>
-                    </pre>
+    render(){
+        return (
+            this.state.codebase?
+                <div>
+                    <p>You can share this result with your friends, just copy the following code:</p>
+                    <div id="code-container">
+                        <button onClick={() => this.copyCodeToClipboard()}>Copy code</button>
+                        <pre>
+                            <code>
+                                {CODE_TEMPLATE(this.state.codebase)}
+                            </code>
+                        </pre>
+                    </div>
                 </div>
-            </div>
-            :null
-    );
+                :null
+        );
+    }
 }
 
 export default CodeCopier;
