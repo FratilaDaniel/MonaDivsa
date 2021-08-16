@@ -49,6 +49,7 @@ class CodeCopier extends React.Component{
                     <p>You can share this result with your friends, just copy the following code:</p>
                     <div id="code-container">
                         <button onClick={() => this.copyCodeToClipboard()}>Copy code</button>
+                        <hr/>
                         <pre>
                             <code>
                                 {CODE_TEMPLATE(this.state.codebase)}

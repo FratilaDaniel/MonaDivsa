@@ -7,6 +7,10 @@
     border: 2px solid black;
 }
 
+#code-container hr{
+    width: 100%;
+}
+
 #code-container pre{
     max-height: 350px;
     overflow-y: scroll;
