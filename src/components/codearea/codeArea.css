@@ -4,6 +4,7 @@
     align-items: flex-end;
     border: 2px solid grey;
     min-width: 300px;
+    border: 2px solid black;
 }
 
 #code-container pre{

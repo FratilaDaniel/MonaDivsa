@@ -6,13 +6,11 @@ import loadAnimationModel from "../loadAnimation/loadAnimationModel";
 const VALID_IMAGE_TYPES = ['image/jpeg', 'image/png'];
 
 class Uploader extends React.Component{
-    constructor(){
-        super();
+    componentDidMount(){
         uploaderModel.addListener("fileChosen", this.listener);
     }
 
     listener(){
-        console.log("uploader event")
         divCreatorPresenter.getFinalImage(uploaderModel.state.fileObject);
     }
 
@@ -20,15 +18,20 @@ class Uploader extends React.Component{
         uploaderModel.removeListener("fileChosen", this.listener);
     }
 
+    handleChange(event){
+        loadAnimationModel.startAnimation();
+        setTimeout(() => {
+            uploaderModel.setFileObject(event.target.files[0]);
+            loadAnimationModel.endAnimation();
+        }, 100);
+    }
+
     render(){
         return (
-            <div className="body-container">
+            <div>
                 <input 
                     type="file" 
-                    onChange={(event) => {
-                        Promise.resolve().then(loadAnimationModel.startAnimation())
-                        .then(uploaderModel.setFileObject(event.target.files[0]));
-                    }} 
+                    onChange={(event) => this.handleChange(event)} 
                     accept={VALID_IMAGE_TYPES.join(",")}/>
                 <p className="description">I spent way too much time thinking if I could<br/>and not enough time thinking if I should</p>
             </div>

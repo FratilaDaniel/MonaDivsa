@@ -1,6 +1,6 @@
 import "./codeArea.css";
 import React from "react";
-import uploaderModel from "../uploader/uploaderModel";
+import divCreatorModel from "../divCreator/DivCreatorModel";
 
 const CODE_TEMPLATE = (content) =>`
 <!DOCTYPE HTML>
@@ -19,15 +19,18 @@ class CodeCopier extends React.Component{
         this.state = {
             codebase: ""
         };
-        uploaderModel.addListener("fileChosen", () => this.listener());
+    }
+
+    componentDidMount(){
+        divCreatorModel.addListener("imageProcessFinish", () => this.listener());
     }
 
     listener(){
-        this.setState({codebase: uploaderModel.state.fileObject});
+        this.setState({codebase: divCreatorModel.state.textCode});
     }
 
     componentWillUnmount(){
-        uploaderModel.removeListener("fileChosen", this.listener);
+        divCreatorModel.removeListener("imageProcessFinish", this.listener);
     }
 
     copyCodeToClipboard(){

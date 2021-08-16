@@ -4,13 +4,10 @@ import divCreatorModel from "./DivCreatorModel";
 class DivCreatorPresenter{
     getFinalImage(imageSource){
         loadAnimationModel.startAnimation();
-        setTimeout(() => {
-            divCreatorModel.setImage(imageSource);
-            divCreatorModel.createCanvas();
-            divCreatorModel.loadImage();
-            divCreatorModel.removeCanvas();
-            loadAnimationModel.endAnimation();
-        }, 100);
+        divCreatorModel.setImage(imageSource);
+        divCreatorModel.createCanvas();
+        divCreatorModel.loadImage();
+        divCreatorModel.removeCanvas();
     }
 }
 

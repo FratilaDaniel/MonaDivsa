@@ -23,9 +23,11 @@ function App() {
                 <p>Large images will take longer to be transformed into DIVs, images of 300x300 size or less are recommended.</p>  
             </div>
             <Uploader />
-            <LoadAnimation/>
-            <DivCreator/>
-            <CodeCopier/>
+            <div className="body-container">
+                <LoadAnimation/>
+                <DivCreator/>
+                <CodeCopier/>
+            </div>
             <Contact/>
         </div>
     );

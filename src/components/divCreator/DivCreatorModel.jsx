@@ -15,27 +15,33 @@ class DivCreatorModel extends EventEmitter{
     }
 
     setImage(image){
-        this.state.imageObject = image; 
+        this.state.imageObject = image;
     }
 
     createCanvas(){
         this.canvas = document.createElement("canvas");
         document.body.appendChild(this.canvas);
         this.canvasContext = this.canvas.getContext("2d");
-        // context.clearRect(0, 0, this.canvas.height, this.canvas.width); // clear canvas every time an image is loaded
-    }
+   }
 
     loadImage(){
-        
         this.emit("loadStart");
         let img = new Image();
         img.src = this.state.imageObject;
-        img.onload = async () => {
+        img.onload = () => {
             let [width, height] = [img.width, img.height];
             this.canvas.height = height;
             this.canvas.width = width;
             this.canvasContext.drawImage(img, 0, 0);
             const data = this.canvasContext.getImageData(0, 0, width, height).data;
+
+            // let worker = new Worker("worker.js");
+            // worker.postMessage([data, height, width]);
+            // worker.onmessage = function(event){
+                
+            //     console.log(event);
+            //     console.log("ajung");
+            // }
             
             let pixels = [];
             let code = `<div style="display: grid; grid-template-rows: repeat(${height}, 1px); grid-template-columns: repeat(${width}, 1px);">\n`;
@@ -62,7 +68,6 @@ class DivCreatorModel extends EventEmitter{
     }
 
     removeCanvas(){
-
         document.body.removeChild(this.canvas);
     }
 }
